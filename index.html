@@ -5,217 +5,274 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Monetization XP Dashboard</title>
   <style>
-    :root {
-      --bg: #0b0f16;
-      --panel: #111827;
-      --panel2: #0f172a;
-      --text: #e5e7eb;
-      --muted: #9ca3af;
-      --accent: #60a5fa;
-      --good: #34d399;
-      --warn: #fbbf24;
-      --bad: #f87171;
-      --border: rgba(255,255,255,.08);
-      --shadow: 0 10px 30px rgba(0,0,0,.35);
+    :root{
+      --bg:#070a12;
+      --text:#e5e7eb;
+      --muted:#9ca3af;
+
+      --card: rgba(17,24,39,.70);
+      --card2: rgba(15,23,42,.55);
+      --border: rgba(255,255,255,.10);
+      --shadow: 0 16px 40px rgba(0,0,0,.38);
+
+      --blue:#60a5fa;
+      --green:#34d399;
+      --amber:#fbbf24;
+      --red:#fb7185;
+
       --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
     }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
-      background: radial-gradient(1200px 700px at 20% -10%, rgba(96,165,250,.25), transparent),
-                  radial-gradient(900px 600px at 90% 10%, rgba(52,211,153,.14), transparent),
-                  var(--bg);
-      color: var(--text);
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      color:var(--text);
+      background:
+        radial-gradient(900px 600px at 15% -10%, rgba(96,165,250,.22), transparent),
+        radial-gradient(900px 700px at 90% 10%, rgba(52,211,153,.10), transparent),
+        radial-gradient(800px 600px at 40% 110%, rgba(251,113,133,.10), transparent),
+        var(--bg);
     }
-    header {
-      padding: 18px 16px;
-      border-bottom: 1px solid var(--border);
-      position: sticky;
-      top: 0;
-      background: rgba(11,15,22,.85);
+
+    header{
+      position:sticky; top:0; z-index:10;
+      background: rgba(7,10,18,.75);
       backdrop-filter: blur(10px);
-      z-index: 10;
+      border-bottom:1px solid var(--border);
+      padding:14px 16px;
     }
-    header .row {
-      max-width: 1100px;
-      margin: 0 auto;
-      display: flex;
-      gap: 12px;
-      align-items: center;
-      justify-content: space-between;
+    header .row{
+      max-width:1200px; margin:0 auto;
+      display:flex; gap:12px; align-items:center; justify-content:space-between;
     }
-    h1 {
-      margin: 0;
-      font-size: 16px;
-      letter-spacing: .2px;
-      font-weight: 700;
-    }
-    .sub { color: var(--muted); font-size: 12px; margin-top: 4px; }
-    .btns { display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
-    button {
-      background: linear-gradient(180deg, rgba(96,165,250,.18), rgba(96,165,250,.08));
-      border: 1px solid rgba(96,165,250,.35);
-      color: var(--text);
-      padding: 8px 10px;
-      border-radius: 10px;
-      cursor: pointer;
-      font-weight: 600;
-      font-size: 12px;
-    }
-    button.secondary {
+    h1{ margin:0; font-size:14px; font-weight:900; letter-spacing:.3px; }
+    .sub{ margin-top:4px; font-size:11px; color:rgba(156,163,175,.95); }
+    .btns{ display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end; }
+    button{
+      cursor:pointer;
+      font-weight:800;
+      font-size:12px;
+      padding:8px 10px;
+      border-radius:12px;
+      color:var(--text);
+      border:1px solid rgba(255,255,255,.14);
       background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.04));
-      border: 1px solid rgba(255,255,255,.14);
-      color: var(--text);
     }
-    button.danger {
-      background: linear-gradient(180deg, rgba(248,113,113,.18), rgba(248,113,113,.08));
-      border: 1px solid rgba(248,113,113,.35);
+    button.primary{
+      border-color: rgba(96,165,250,.40);
+      background: linear-gradient(180deg, rgba(96,165,250,.22), rgba(96,165,250,.10));
     }
-    button:active { transform: translateY(1px); }
+    button.danger{
+      border-color: rgba(251,113,133,.40);
+      background: linear-gradient(180deg, rgba(251,113,133,.18), rgba(251,113,133,.08));
+    }
+    button:active{ transform: translateY(1px); }
 
-    main { max-width: 1100px; margin: 0 auto; padding: 18px 16px 28px; }
+    main{ max-width:1200px; margin:0 auto; padding:16px; }
 
-    .grid {
-      display: grid;
-      grid-template-columns: 1.1fr .9fr;
-      gap: 14px;
+    /* Layout: main content + right sidebar */
+    .layout{
+      display:grid;
+      grid-template-columns: 1fr 340px;
+      gap:14px;
+      align-items:start;
     }
-    @media (max-width: 980px) { .grid { grid-template-columns: 1fr; } }
+    @media (max-width: 1020px){
+      .layout{ grid-template-columns: 1fr; }
+    }
 
-    .card {
-      background: linear-gradient(180deg, rgba(17,24,39,.92), rgba(17,24,39,.72));
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      box-shadow: var(--shadow);
-      padding: 14px;
+    .card{
+      border:1px solid var(--border);
+      border-radius:16px;
+      box-shadow:var(--shadow);
+      background: linear-gradient(180deg, rgba(17,24,39,.75), rgba(17,24,39,.55));
+      padding:12px;
     }
-    .card h2 {
-      margin: 0 0 10px;
-      font-size: 14px;
-      color: rgba(229,231,235,.95);
-    }
-    .kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-    @media (max-width: 980px) { .kpis { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 560px) { .kpis { grid-template-columns: 1fr; } }
 
-    .kpi {
-      background: linear-gradient(180deg, rgba(15,23,42,.75), rgba(15,23,42,.5));
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 12px;
+    .titleRow{
+      display:flex;
+      align-items:baseline;
+      justify-content:space-between;
+      gap:10px;
+      margin-bottom:10px;
     }
-    .kpi .label { font-size: 12px; color: var(--muted); }
-    .kpi .value { font-size: 22px; font-weight: 800; margin-top: 6px; }
-.kpi .hint { font-size: 11px; color: rgba(156,163,175,.9); margin-top: 4px; }
+    .card h2{
+      margin:0;
+      font-size:13px;
+      font-weight:900;
+      letter-spacing:.2px;
+    }
+    .tiny{ font-size:11px; color:rgba(156,163,175,.95); }
+    .mono{ font-family: var(--mono); }
 
-    .xpbar {
-      height: 10px;
+    .grid2{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+gap:14px;
+    }
+    @media (max-width: 980px){ .grid2{ grid-template-columns:1fr; } }
+
+    /* Goal & XP */
+    .form{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:10px;
+    }
+    @media (max-width: 760px){ .form{ grid-template-columns:1fr; } }
+    label{ display:block; font-size:11px; color:rgba(156,163,175,.95); margin-bottom:6px; }
+    input, select, textarea{
+      width:100%;
+      padding:9px 10px;
+      border-radius:12px;
+      border:1px solid var(--border);
+      background: rgba(255,255,255,.04);
+      color:var(--text);
+      outline:none;
+    }
+    textarea{ min-height:72px; resize:vertical; }
+
+    .xpbar{
+      height:10px;
+      border-radius:999px;
+      overflow:hidden;
+      border:1px solid var(--border);
       background: rgba(255,255,255,.06);
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      overflow: hidden;
-      margin-top: 10px;
+      margin-top:10px;
     }
-    .xpbar > div {
-      height: 100%;
-      width: 0;
+    .xpbar > div{
+      height:100%;
+      width:0%;
       background: linear-gradient(90deg, rgba(96,165,250,.95), rgba(52,211,153,.9));
     }
 
-    .row2 { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; justify-content: space-between; }
-    .mono { font-family: var(--mono); }
+    /* KPI cards */
+    .kpis{ display:grid; grid-template-columns: repeat(3, 1fr); gap:10px; }
+    @media (max-width: 980px){ .kpis{ grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 560px){ .kpis{ grid-template-columns: 1fr; } }
+    .kpi{
+      border:1px solid var(--border);
+      border-radius:14px;
+      padding:10px;
+      background: linear-gradient(180deg, rgba(15,23,42,.72), rgba(15,23,42,.48));
+    }
+    .kpi .label{ font-size:11px; color:rgba(156,163,175,.95); }
+    .kpi .value{ font-size:20px; font-weight:950; margin-top:6px; }
+    .kpi .hint{ font-size:11px; color:rgba(156,163,175,.95); margin-top:4px; }
 
-    .agents { display: flex; flex-direction: column; gap: 10px; }
-    details {
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      overflow: hidden;
+    /* Agents */
+    details{
+      border:1px solid var(--border);
+      border-radius:14px;
       background: rgba(15,23,42,.35);
+      overflow:hidden;
+      margin-bottom:10px;
     }
-    summary {
-      padding: 10px 12px;
-      cursor: pointer;
-      display: flex;
-      gap: 10px;
-      align-items: baseline;
-      justify-content: space-between;
-      list-style: none;
+    summary{
+      cursor:pointer;
+      list-style:none;
+      display:flex;
+      justify-content:space-between;
+      align-items:baseline;
+      gap:10px;
+      padding:10px 12px;
     }
-    summary::-webkit-details-marker { display:none; }
-    .agent-title { display: flex; gap: 10px; align-items: baseline; }
-    .pill {
-      font-size: 11px;
-      padding: 3px 8px;
-      border-radius: 999px;
-      border: 1px solid var(--border);
-      color: rgba(229,231,235,.95);
+    summary::-webkit-details-marker{ display:none; }
+    .pill{
+      font-size:11px;
+      padding:3px 8px;
+      border-radius:999px;
+      border:1px solid var(--border);
       background: rgba(255,255,255,.04);
-      white-space: nowrap;
+      white-space:nowrap;
     }
-    .pill.good { border-color: rgba(52,211,153,.35); background: rgba(52,211,153,.08); }
-    .pill.warn { border-color: rgba(251,191,36,.35); background: rgba(251,191,36,.08); }
+    .pill.good{ border-color: rgba(52,211,153,.35); background: rgba(52,211,153,.08); }
+    .pill.warn{ border-color: rgba(251,191,36,.35); background: rgba(251,191,36,.08); }
+    .agentBody{ padding:0 12px 12px; }
 
-    .agent-body { padding: 0 12px 12px; }
-    .muted { color: var(--muted); font-size: 12px; }
-
-    .tasks { margin-top: 10px; display: flex; flex-direction: column; gap: 8px; }
-    .task {
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 10px;
+    /* Tasks */
+    .tasks{ display:flex; flex-direction:column; gap:8px; margin-top:10px; }
+    .task{
+      border:1px solid var(--border);
+      border-radius:14px;
+      padding:10px;
       background: rgba(17,24,39,.55);
-      display: grid;
+      display:grid;
       grid-template-columns: 1fr auto;
-      gap: 10px;
-      align-items: center;
+      gap:10px;
+      align-items:center;
+      transition: transform .08s ease, border-color .15s ease;
     }
-    .task .name { font-weight: 700; font-size: 13px; }
-    .task .meta { font-size: 11px; color: var(--muted); margin-top: 3px; }
+    .task:hover{ transform: translateY(-1px); border-color: rgba(255,255,255,.18); }
+    .task .name{ font-weight:950; font-size:13px; }
+    .task .meta{ font-size:11px; color:rgba(156,163,175,.95); margin-top:3px; }
 
-    .controls { display:flex; gap: 6px; }
-    .controls button { padding: 6px 8px; border-radius: 10px; font-size: 11px; }
-
-    .form {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-top: 10px;
+    /* Urgency hues */
+    .task.urgent{
+      border-color: rgba(251,113,133,.45);
+      background: linear-gradient(180deg, rgba(251,113,133,.14), rgba(17,24,39,.55));
     }
-    @media (max-width: 760px) { .form { grid-template-columns: 1fr; } }
-    label { font-size: 12px; color: var(--muted); display:block; margin-bottom: 6px; }
-    input, select, textarea {
-      width: 100%;
-      padding: 9px 10px;
-      border-radius: 12px;
+    .task.todo{
+      border-color: rgba(52,211,153,.35);
+      background: linear-gradient(180deg, rgba(52,211,153,.10), rgba(17,24,39,.55));
+    }
+    .task.backlog{
+      border-color: rgba(255,255,255,.12);
+    }
+
+    .controls{ display:flex; gap:6px; flex-wrap:wrap; justify-content:flex-end; }
+    .controls button{ padding:6px 8px; border-radius:12px; font-size:11px; }
+
+    /* Sidebar daily */
+    .sidebar{
+      position: sticky;
+      top: 76px;
+    }
+    @media (max-width: 1020px){
+      .sidebar{ position: static; }
+    }
+    .dailyList{ display:flex; flex-direction:column; gap:8px; margin-top:10px; }
+    .dailyItem{
+      border:1px solid var(--border);
+      border-radius:14px;
+      padding:10px;
+      background: rgba(15,23,42,.42);
+}
+    .dailyItem .top{
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+    }
+    .dailyItem .top .left{
+      display:flex; gap:8px; align-items:center; flex-wrap:wrap;
+    }
+    .tag{
+      font-size:10px;
+      padding:2px 7px;
+      border-radius:999px;
+      border:1px solid var(--border);
+      color:rgba(229,231,235,.95);
       background: rgba(255,255,255,.04);
-      border: 1px solid var(--border);
-      color: var(--text);
-      outline: none;
+      white-space:nowrap;
     }
-    textarea { min-height: 84px; resize: vertical; }
+    .tag.red{ border-color: rgba(251,113,133,.45); background: rgba(251,113,133,.10); }
+    .tag.green{ border-color: rgba(52,211,153,.35); background: rgba(52,211,153,.10); }
+    .tag.gray{ border-color: rgba(255,255,255,.14); }
 
-    .toast {
-      position: fixed;
-      bottom: 14px;
-      left: 50%;
+    .toast{
+      position:fixed;
+      bottom:14px;
+      left:50%;
       transform: translateX(-50%);
       background: rgba(17,24,39,.92);
-      border: 1px solid var(--border);
-      color: var(--text);
-      padding: 10px 12px;
-      border-radius: 12px;
+      border:1px solid var(--border);
+      padding:10px 12px;
+      border-radius:12px;
       box-shadow: var(--shadow);
-      opacity: 0;
-      pointer-events: none;
+      opacity:0;
+      pointer-events:none;
       transition: opacity .25s ease;
+      font-size:12px;
       max-width: 96vw;
-      font-size: 12px;
     }
-    .toast.on { opacity: 1; }
-
-    .small { font-size: 11px; color: rgba(156,163,175,.9); }
-    .split { display:flex; gap: 10px; flex-wrap: wrap; align-items: center; justify-content: space-between; }
+    .toast.on{ opacity:1; }
   </style>
 </head>
 <body>
@@ -223,101 +280,116 @@
     <div class="row">
       <div>
         <h1>Monetization XP Dashboard</h1>
-        <div class="sub">Web hosted • persists in your browser (localStorage) • gamified KPIs → XP → Levels</div>
+        <div class="sub">Updates persist in your browser (localStorage)</div>
       </div>
       <div class="btns">
-        <button class="secondary" id="btnExport">Export JSON</button>
-        <button class="secondary" id="btnImport">Import JSON</button>
-        <button class="secondary" id="btnCopyDoc">Copy Doc-Ready Summary</button>
+        <button class="primary" id="btnCopyDoc">Copy Summary</button>
+        <button id="btnExport">Export</button>
+        <button id="btnImport">Import</button>
         <button class="danger" id="btnReset">Reset</button>
       </div>
     </div>
   </header>
 
   <main>
-<div class="card">
-      <div class="split">
-        <div>
-          <h2 style="margin:0">Goal & XP</h2>
-          <div class="muted">Set the goal once, then track KPIs. XP is earned by hitting weekly targets and completing agent tasks.</div>
+    <div class="layout">
+      <!-- MAIN -->
+      <div>
+        <div class="card">
+          <div class="titleRow">
+            <h2>Goal & XP</h2>
+            <div class="tiny mono" id="lastUpdated"></div>
+          </div>
+
+          <div class="form">
+            <div style="grid-column:1/-1">
+              <label>Primary monetization goal</label>
+              <input id="goalText" />
+            </div>
+            <div>
+              <label>Weekly XP target</label>
+              <input id="xpTarget" type="number" min="1" step="1" />
+            </div>
+            <div>
+              <label>Total XP</label>
+              <input id="xp" type="number" min="0" step="1" />
+            </div>
+            <div>
+              <label>Level</label>
+              <input id="level" type="number" min="1" step="1" />
+            </div>
+          </div>
+
+          <div class="xpbar"><div id="xpFill"></div></div>
+          <div class="tiny" id="xpHint" style="margin-top:8px"></div>
         </div>
-        <div class="mono small" id="lastUpdated"></div>
+
+        <div class="grid2" style="margin-top:14px">
+          <div class="card">
+            <div class="titleRow">
+              <h2>KPIs</h2>
+              <div class="tiny">This week</div>
+            </div>
+            <div class="kpis" id="kpiGrid"></div>
+
+            <div class="form" style="margin-top:12px">
+              <div>
+                <label>Add KPI</label>
+                <input id="newKpiName" placeholder="e.g., Cold emails sent" />
+              </div>
+              <div>
+                <label>Unit</label>
+                <input id="newKpiUnit" placeholder="count / % / $" />
+              </div>
+              <div>
+                <label>Weekly Target</label>
+                <input id="newKpiTarget" type="number" step="any" placeholder="250" />
+              </div>
+              <div style="display:flex;align-items:flex-end">
+                <button id="btnAddKpi" style="width:100%">Add KPI</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="titleRow">
+              <h2>Agents & Levels</h2>
+              <div class="tiny">Tasks award XP</div>
+            </div>
+
+            <div class="form">
+              <div>
+                <label>New agent name</label>
+                <input id="newAgentName" placeholder="e.g., Offer + Copy Agent" />
+              </div>
+              <div>
+<label>Parent</label>
+                <select id="newAgentParent"></select>
+              </div>
+              <div style="grid-column:1/-1">
+                <label>Role</label>
+                <input id="newAgentRole" placeholder="e.g., Sales pages, sequences, hooks" />
+              </div>
+              <div style="grid-column:1/-1">
+                <button id="btnAddAgent" style="width:100%">Add Agent</button>
+              </div>
+            </div>
+
+            <div id="agents" style="margin-top:12px"></div>
+          </div>
+        </div>
       </div>
 
-      <div class="form" style="margin-top:12px">
-        <div>
-          <label>Primary monetization goal (1 line)</label>
-          <input id="goalText" placeholder="e.g., $10k/mo: Outbound System Setup + Retainer sold via YouTube + SEO" />
+      <!-- SIDEBAR -->
+      <div class="sidebar">
+        <div class="card">
+          <div class="titleRow">
+            <h2>Daily Tasks</h2>
+            <div class="tiny" id="dailyCount"></div>
+          </div>
+          <div class="tiny">Urgent (≤1d) + Daily + 1–3d tasks</div>
+          <div class="dailyList" id="dailyList"></div>
         </div>
-        <div>
-          <label>Weekly XP target</label>
-          <input id="xpTarget" type="number" min="1" step="1" />
-        </div>
-        <div>
-          <label>Current Level</label>
-          <input id="level" type="number" min="1" step="1" />
-        </div>
-        <div>
-          <label>Total XP</label>
-          <input id="xp" type="number" min="0" step="1" />
-        </div>
-      </div>
-
-      <div class="xpbar" title="XP progress toward next level"><div id="xpFill"></div></div>
-      <div class="small" id="xpHint" style="margin-top:8px"></div>
-    </div>
-
-    <div class="grid" style="margin-top:14px">
-      <div class="card">
-        <h2>KPIs (this week)</h2>
-        <div class="kpis" id="kpiGrid"></div>
-
-        <div class="form" style="margin-top:12px">
-          <div>
-            <label>Add KPI</label>
-            <input id="newKpiName" placeholder="e.g., Cold emails sent" />
-          </div>
-          <div>
-            <label>Unit</label>
-            <input id="newKpiUnit" placeholder="e.g., count / % / $" />
-          </div>
-          <div>
-            <label>Weekly Target</label>
-            <input id="newKpiTarget" type="number" step="any" placeholder="e.g., 250" />
-          </div>
-          <div style="display:flex;align-items:flex-end">
-            <button id="btnAddKpi" style="width:100%">Add KPI</button>
-          </div>
-        </div>
-
-        <div class="small" style="margin-top:10px">
-          Tip: Keep 5–8 KPIs max. If you add too many, the game gets noisy.
-        </div>
-      </div>
-
-      <div class="card">
-        <h2>Agents & Levels</h2>
-        <div class="muted">You (main agent) + sub agents + levels under them. Each task can award XP when completed.</div>
-
-        <div class="form" style="margin-top:10px">
-          <div>
-            <label>New agent / sub-agent name</label>
-            <input id="newAgentName" placeholder="e.g., Offer+Copy Agent" />
-          </div>
-          <div>
-            <label>Parent</label>
-            <select id="newAgentParent"></select>
-          </div>
-          <div>
-            <label>Role (1 line)</label>
-            <input id="newAgentRole" placeholder="e.g., Write sales pages, sequences, scripts" />
-          </div>
-          <div style="display:flex;align-items:flex-end">
-            <button id="btnAddAgent" style="width:100%">Add Agent</button>
-          </div>
-        </div>
-
-        <div class="agents" id="agents"></div>
       </div>
     </div>
   </main>
@@ -326,8 +398,9 @@
   <input id="fileImport" type="file" accept="application/json" style="display:none" />
 
   <script>
-    const STORAGE_KEY = 'monetization_xp_dashboard_v1';
-const defaultState = () => ({
+    const STORAGE_KEY = 'monetization_xp_dashboard_v2';
+
+    const defaultState = () => ({
       goalText: 'Reach $10k/mo: Sell Outbound System Setup (48–72h) → convert to monthly Outbound Ops Retainer',
       xpTarget: 100,
       level: 1,
@@ -338,20 +411,21 @@ const defaultState = () => ({
         { id: crypto.randomUUID(), name: 'Cold emails sent', unit: 'count', target: 250, value: 0 },
         { id: crypto.randomUUID(), name: 'Positive replies', unit: 'count', target: 8, value: 0 },
         { id: crypto.randomUUID(), name: 'Booked calls', unit: 'count', target: 3, value: 0 },
-        { id: crypto.randomUUID(), name: 'Content shipped (YT/posts)', unit: 'count', target: 3, value: 0 },
+        { id: crypto.randomUUID(), name: 'Content shipped', unit: 'count', target: 3, value: 0 },
         { id: crypto.randomUUID(), name: 'Revenue', unit: '$', target: 2500, value: 0 },
       ],
       agents: [
         {
           id: 'main',
           name: 'Main Agent (You + System)',
-          role: 'Own strategy, decisions, final deliverables, and KPI scoreboard',
+          role: 'Strategy, decisions, final deliverables, KPI scoreboard',
           parentId: null,
           level: 1,
           xp: 0,
           tasks: [
-            { id: crypto.randomUUID(), name: 'Publish 1 demo (YT or post)', notes: '1 problem → 1 system → CTA', xp: 15, status: 'todo' },
-            { id: crypto.randomUUID(), name: 'Ship lead magnet v1', notes: 'Outbound System Build Checklist', xp: 25, status: 'todo' },
+            { id: crypto.randomUUID(), name: 'Publish 1 demo', notes: '1 problem → 1 system → CTA', xp: 15, status: 'todo', dueDays: 2, cadence: 'once' },
+            { id: crypto.randomUUID(), name: 'Ship lead magnet v1', notes: 'Outbound System Build Checklist', xp: 25, status: 'todo', dueDays: 1, cadence: 'once' },
+            { id: crypto.randomUUID(), name: 'Check KPI scoreboard', notes: 'Update KPIs daily', xp: 5, status: 'todo', dueDays: 0, cadence: 'daily' },
           ]
         },
         {
@@ -362,180 +436,189 @@ const defaultState = () => ({
           level: 1,
           xp: 0,
           tasks: [
-            { id: crypto.randomUUID(), name: 'Draft one-page sales page', notes: 'Starter/Growth/Scale tiers + FAQs', xp: 20, status: 'done' },
-            { id: crypto.randomUUID(), name: 'Write 3 outbound sequences', notes: '3 angles, 6-touch each', xp: 25, status: 'todo' },
+            { id: crypto.randomUUID(), name: 'Draft one-page sales page', notes: 'Tiers + FAQs', xp: 20, status: 'done', dueDays: 0, cadence: 'once' },
+            { id: crypto.randomUUID(), name: 'Write 3 outbound sequences', notes: '3 angles, 6-touch', xp: 25, status: 'todo', dueDays: 3, cadence: 'once' },
           ]
         },
         {
           id: crypto.randomUUID(),
           name: 'Content Calendar Agent',
-          role: '4-week YT+SEO plan, scripts, titles, keywords',
+          role: '4-week YT+SEO plan, scripts, keywords',
           parentId: 'main',
           level: 1,
           xp: 0,
           tasks: [
-            { id: crypto.randomUUID(), name: '4-week calendar drafted', notes: 'Titles, hooks, CTAs, matching blog posts', xp: 20, status: 'done' },
-            { id: crypto.randomUUID(), name: 'Write Week 1 scripts', notes: '3 videos with description + pinned comment', xp: 30, status: 'todo' },
+            { id: crypto.randomUUID(), name: '4-week calendar drafted', notes: 'Titles/hooks/CTAs', xp: 20, status: 'done', dueDays: 0, cadence: 'once' },
+            { id: crypto.randomUUID(), name: 'Write Week 1 scripts', notes: '3 scripts + descriptions', xp: 30, status: 'todo', dueDays: 2, cadence: 'once' },
           ]
         },
       ]
     });
 
-    function load() {
-      try {
+    function load(){
+      try{
         const raw = localStorage.getItem(STORAGE_KEY);
-        if (!raw) return defaultState();
+if(!raw) return defaultState();
         const parsed = JSON.parse(raw);
         return { ...defaultState(), ...parsed };
-      } catch {
+      }catch{
         return defaultState();
       }
     }
 
-    function save() {
+    let state = load();
+
+    function save(){
       state.lastUpdated = Date.now();
       localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
       render();
     }
 
-    function toast(msg) {
+    function toast(msg){
       const el = document.getElementById('toast');
       el.textContent = msg;
       el.classList.add('on');
-      setTimeout(() => el.classList.remove('on'), 1600);
+      setTimeout(()=>el.classList.remove('on'), 1600);
     }
 
-    function computeLevelFromXp(xp) {
-      let lvl = 1;
-      let need = 100;
-      let remaining = xp;
-      while (remaining >= need) {
-        remaining -= need;
-        lvl += 1;
-        need = Math.floor(need * 1.25 + 10);
-        if (lvl > 99) break;
+    function computeLevelFromXp(xp){
+      let lvl=1, need=100, remaining=xp;
+      while(remaining>=need){
+        remaining-=need; lvl+=1;
+        need = Math.floor(need*1.25 + 10);
+        if(lvl>99) break;
       }
       return { lvl, remaining, need };
     }
 
-    function awardXp(amount, reason) {
+    function awardXp(amount, reason){
       amount = Math.max(0, Math.floor(amount));
-      if (!amount) return;
+      if(!amount) return;
       state.xp += amount;
-      const { lvl } = computeLevelFromXp(state.xp);
-      state.level = lvl;
+      state.level = computeLevelFromXp(state.xp).lvl;
       toast(`+${amount} XP — ${reason}`);
       save();
     }
 
-    function kpiXpThisWeek() {
-      let total = 0;
-      for (const k of state.kpis) {
-        const t = Number(k.target) || 0;
-        const v = Number(k.value) || 0;
-        if (t <= 0) continue;
-        const pct = Math.max(0, Math.min(1.5, v / t));
-total += Math.min(20, Math.floor(pct * 20));
-      }
-      return total;
-    }
-
-    function escapeHtml(s) {
+    function escapeHtml(s){
       return String(s)
-        .replaceAll('&', '&amp;')
-        .replaceAll('<', '&lt;')
-        .replaceAll('>', '&gt;')
-        .replaceAll('"', '&quot;')
-        .replaceAll("'", '&#039;');
+        .replaceAll('&','&amp;')
+        .replaceAll('<','&lt;')
+        .replaceAll('>','&gt;')
+        .replaceAll('"','&quot;')
+        .replaceAll("'","&#039;");
     }
 
-    function renderKpis() {
+    /* KPIs */
+    function renderKpis(){
       const grid = document.getElementById('kpiGrid');
-      grid.innerHTML = '';
-      for (const k of state.kpis) {
-        const t = Number(k.target) || 0;
-        const v = Number(k.value) || 0;
-        const pct = t ? Math.round((v / t) * 100) : 0;
-        const color = pct >= 100 ? 'var(--good)' : pct >= 70 ? 'var(--warn)' : 'var(--muted)';
+      grid.innerHTML='';
+      for(const k of state.kpis){
+        const t = Number(k.target)||0;
+        const v = Number(k.value)||0;
+        const pct = t ? Math.round((v/t)*100) : 0;
+        const color = pct>=100 ? 'var(--green)' : pct>=70 ? 'var(--amber)' : 'rgba(156,163,175,.95)';
 
         const el = document.createElement('div');
-        el.className = 'kpi';
+        el.className='kpi';
         el.innerHTML = `
           <div class="label">${escapeHtml(k.name)} <span class="mono" style="float:right;color:${color}">${isFinite(pct)?pct:0}%</span></div>
-          <div class="value mono">${escapeHtml(String(v))} <span style="font-size:12px;color:var(--muted)">${escapeHtml(k.unit||'')}</span></div>
-          <div class="hint">Target: <span class="mono">${escapeHtml(String(t))}</span>
+          <div class="value mono">${escapeHtml(String(v))} <span style="font-size:12px;color:rgba(156,163,175,.95)">${escapeHtml(k.unit||'')}</span></div>
+          <div class="hint">
+            Target: <span class="mono">${escapeHtml(String(t))}</span>
             <span style="float:right">
-              <button class="secondary" data-kpi="${k.id}" data-delta="-1">-</button>
-              <button class="secondary" data-kpi="${k.id}" data-delta="1">+</button>
-              <button class="secondary" data-kpi-del="${k.id}">Delete</button>
+              <button data-kpi="${k.id}" data-delta="-1">-</button>
+              <button data-kpi="${k.id}" data-delta="1">+</button>
+              <button data-kpi-del="${k.id}">Del</button>
             </span>
           </div>
         `;
         grid.appendChild(el);
       }
 
-      grid.querySelectorAll('button[data-kpi]').forEach(btn => {
-        btn.addEventListener('click', () => {
+      grid.querySelectorAll('button[data-kpi]').forEach(btn=>{
+        btn.addEventListener('click', ()=>{
           const id = btn.getAttribute('data-kpi');
           const delta = Number(btn.getAttribute('data-delta'));
-          const k = state.kpis.find(x => x.id === id);
-          if (!k) return;
-          k.value = Number(k.value || 0) + delta;
+          const k = state.kpis.find(x=>x.id===id);
+          if(!k) return;
+          k.value = Number(k.value||0) + delta;
           save();
         });
       });
-      grid.querySelectorAll('button[data-kpi-del]').forEach(btn => {
-        btn.addEventListener('click', () => {
+      grid.querySelectorAll('button[data-kpi-del]').forEach(btn=>{
+        btn.addEventListener('click', ()=>{
           const id = btn.getAttribute('data-kpi-del');
-          state.kpis = state.kpis.filter(x => x.id !== id);
+          state.kpis = state.kpis.filter(x=>x.id!==id);
           save();
         });
       });
     }
 
-    function renderAgents() {
-      const select = document.getElementById('newAgentParent');
-      select.innerHTML = '';
+    function taskUrgencyClass(task){
+      const d = Number(task.dueDays);
+      if(task.status === 'done') return 'backlog';
+      if(task.cadence === 'daily') return 'todo'; // daily = green
+      if(Number.isFinite(d)){
+        if(d <= 1) return 'urgent';
+        if(d <= 3) return 'todo';
+      }
+      return 'backlog';
+    }
+
+    function urgencyTag(task){
+      if(task.status === 'done') return { text:'DONE', cls:'gray' };
+      if(task.cadence === 'daily') return { text:'DAILY', cls:'green' };
+      const d = Number(task.dueDays);
+      if(Number.isFinite(d) && d <= 1) return { text:'URGENT ≤1d', cls:'red' };
+      if(Number.isFinite(d) && d <= 3) return { text:'TODO 1–3d', cls:'green' };
+      return { text:'BACKLOG', cls:'gray' };
+    }
+
+    /* Agents + tasks */
+    function renderAgents(){
+const select = document.getElementById('newAgentParent');
+      select.innerHTML='';
       const opt0 = document.createElement('option');
-      opt0.value = '';
-      opt0.textContent = '(no parent)';
+      opt0.value='';
+      opt0.textContent='(no parent)';
       select.appendChild(opt0);
-      for (const a of state.agents) {
-        const opt = document.createElement('option');
-        opt.value = a.id;
-        opt.textContent = a.name;
+      for(const a of state.agents){
+        const opt=document.createElement('option');
+        opt.value=a.id;
+        opt.textContent=a.name;
         select.appendChild(opt);
       }
 
-      const wrap = document.getElementById('agents');
-      wrap.innerHTML = '';
+      const wrap=document.getElementById('agents');
+      wrap.innerHTML='';
 
-      const byParent = new Map();
-      for (const a of state.agents) {
-        const key = a.parentId || 'root';
-        if (!byParent.has(key)) byParent.set(key, []);
+      const byParent=new Map();
+      for(const a of state.agents){
+        const key=a.parentId||'root';
+        if(!byParent.has(key)) byParent.set(key, []);
         byParent.get(key).push(a);
       }
-      for (const list of byParent.values()) list.sort((x,y)=>x.name.localeCompare(y.name));
+      for(const list of byParent.values()) list.sort((x,y)=>x.name.localeCompare(y.name));
 
-      const renderNode = (agent, depth=0) => {
-        const done = (agent.tasks||[]).filter(t=>t.status==='done').length;
-        const total = (agent.tasks||[]).length;
-        const statusPill = total ? (done===total ? ['good','All done'] : done>0 ? ['warn', `${done}/${total} done`] : ['','No progress']) : ['','No tasks'];
+      const renderNode=(agent, depth=0)=>{
+        const done=(agent.tasks||[]).filter(t=>t.status==='done').length;
+        const total=(agent.tasks||[]).length;
+        const pill = total ? (done===total?['good','All done']:done>0?['warn',`${done}/${total} done`]:['','No progress']) : ['','No tasks'];
 
-        const det = document.createElement('details');
-        det.open = depth === 0;
-        det.innerHTML = `
+        const det=document.createElement('details');
+        det.open = depth===0;
+        det.innerHTML=`
           <summary>
-            <div class="agent-title">
-              <div style="font-weight:800;font-size:13px">${escapeHtml(agent.name)}</div>
+            <div style="display:flex;gap:10px;align-items:baseline;flex-wrap:wrap">
+              <div style="font-weight:950;font-size:13px">${escapeHtml(agent.name)}</div>
               <span class="pill">Lvl <span class="mono">${escapeHtml(String(agent.level||1))}</span></span>
-              <span class="pill ${statusPill[0]}">${escapeHtml(statusPill[1])}</span>
+              <span class="pill ${pill[0]}">${escapeHtml(pill[1])}</span>
             </div>
-            <div class="mono small">XP <span class="mono">${escapeHtml(String(agent.xp||0))}</span></div>
+            <div class="tiny mono">XP ${escapeHtml(String(agent.xp||0))}</div>
           </summary>
-<div class="agent-body">
-            <div class="muted">${escapeHtml(agent.role||'')}</div>
+          <div class="agentBody">
+            <div class="tiny">${escapeHtml(agent.role||'')}</div>
 
             <div class="form" style="margin-top:10px">
               <div>
@@ -546,213 +629,310 @@ total += Math.min(20, Math.floor(pct * 20));
                 <label>XP</label>
                 <input data-task-xp="${agent.id}" type="number" min="0" step="1" value="15" />
               </div>
+              <div>
+                <label>Due</label>
+                <select data-task-due="${agent.id}">
+                  <option value="1">Urgent (≤ 1 day)</option>
+                  <option value="2" selected>To‑do (1–3 days)</option>
+                  <option value="4">Backlog (&gt; 3 days)</option>
+                </select>
+              </div>
+              <div>
+                <label>Cadence</label>
+                <select data-task-cad="${agent.id}">
+                  <option value="once" selected>Once</option>
+                  <option value="daily">Daily</option>
+                </select>
+              </div>
               <div style="grid-column:1/-1">
                 <label>Notes</label>
                 <textarea data-task-notes="${agent.id}" placeholder="Definition of done / links / constraints"></textarea>
               </div>
               <div style="grid-column:1/-1">
-                <button data-task-add="${agent.id}" style="width:100%">Add Task</button>
+                <button class="primary" data-task-add="${agent.id}" style="width:100%">Add Task</button>
               </div>
             </div>
 
             <div class="tasks" id="tasks-${agent.id}"></div>
 
-            <div class="row2" style="margin-top:10px">
-              <div class="small">Agent actions: award XP is global; task XP awards on completion.</div>
+            <div style="display:flex;gap:8px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-top:10px">
+              <div class="tiny">Click “Done +XP” to award XP.</div>
               <div class="controls">
-                <button class="secondary" data-agent-award="${agent.id}">+10 XP</button>
-                <button class="secondary" data-agent-edit="${agent.id}">Edit</button>
+                <button data-agent-award="${agent.id}">+10 XP</button>
+                <button data-agent-edit="${agent.id}">Edit</button>
                 <button class="danger" data-agent-del="${agent.id}">Delete</button>
               </div>
             </div>
           </div>
         `;
-
         wrap.appendChild(det);
 
+        // tasks
         const taskWrap = det.querySelector(`#tasks-${agent.id}`);
-        taskWrap.innerHTML = '';
-        for (const t of (agent.tasks||[])) {
-          const pill = t.status==='done' ? 'good' : t.status==='doing' ? 'warn' : '';
-          const statusLabel = t.status==='done' ? 'DONE' : t.status==='doing' ? 'DOING' : 'TODO';
-          const taskEl = document.createElement('div');
-          taskEl.className = 'task';
-          taskEl.innerHTML = `
+        taskWrap.innerHTML='';
+for(const t of (agent.tasks||[])){
+          const cls = taskUrgencyClass(t);
+          const tag = urgencyTag(t);
+          const taskEl=document.createElement('div');
+          taskEl.className = `task ${cls}`;
+          taskEl.innerHTML=`
             <div>
-              <div class="name">${escapeHtml(t.name)} <span class="pill ${pill}" style="margin-left:8px">${statusLabel}</span></div>
+              <div class="name">${escapeHtml(t.name)} <span class="tag ${tag.cls}" style="margin-left:8px">${escapeHtml(tag.text)}</span></div>
               <div class="meta">XP: <span class="mono">${escapeHtml(String(t.xp||0))}</span>${t.notes?` • ${escapeHtml(t.notes)}`:''}</div>
             </div>
             <div class="controls">
-              <button class="secondary" data-task-status="todo" data-agent="${agent.id}" data-task="${t.id}">Todo</button>
-              <button class="secondary" data-task-status="doing" data-agent="${agent.id}" data-task="${t.id}">Doing</button>
-              <button class="secondary" data-task-done="1" data-agent="${agent.id}" data-task="${t.id}">Done +XP</button>
+              <button data-task-status="todo" data-agent="${agent.id}" data-task="${t.id}">Todo</button>
+              <button data-task-status="doing" data-agent="${agent.id}" data-task="${t.id}">Doing</button>
+              <button class="primary" data-task-done="1" data-agent="${agent.id}" data-task="${t.id}">Done +XP</button>
               <button class="danger" data-task-del="1" data-agent="${agent.id}" data-task="${t.id}">Del</button>
             </div>
           `;
           taskWrap.appendChild(taskEl);
         }
 
-        const kids = byParent.get(agent.id) || [];
-        for (const kid of kids) renderNode(kid, depth+1);
+        // children
+        for(const kid of (byParent.get(agent.id)||[])) renderNode(kid, depth+1);
 
-        det.querySelector(`button[data-task-add="${agent.id}"]`).addEventListener('click', () => {
+        // add task
+        det.querySelector(`button[data-task-add="${agent.id}"]`).addEventListener('click', ()=>{
           const name = det.querySelector(`input[data-task-name="${agent.id}"]`).value.trim();
-          const xp = Number(det.querySelector(`input[data-task-xp="${agent.id}"]`).value || 0);
+          const xp = Number(det.querySelector(`input[data-task-xp="${agent.id}"]`).value||0);
+          const dueDays = Number(det.querySelector(`select[data-task-due="${agent.id}"]`).value||4);
+          const cadence = det.querySelector(`select[data-task-cad="${agent.id}"]`).value || 'once';
           const notes = det.querySelector(`textarea[data-task-notes="${agent.id}"]`).value.trim();
-          if (!name) return toast('Task name required');
+          if(!name) return toast('Task name required');
           agent.tasks = agent.tasks || [];
-          agent.tasks.unshift({ id: crypto.randomUUID(), name, notes, xp: Math.max(0, Math.floor(xp)), status: 'todo' });
-          det.querySelector(`input[data-task-name="${agent.id}"]`).value = '';
-          det.querySelector(`textarea[data-task-notes="${agent.id}"]`).value = '';
-          save();
-        });
-det.querySelector(`button[data-agent-award="${agent.id}"]`).addEventListener('click', () => {
-          agent.xp = (agent.xp||0) + 10;
-          awardXp(10, `${agent.name} manual award`);
-          agent.level = 1 + Math.floor((agent.xp||0) / 50);
+          agent.tasks.unshift({ id: crypto.randomUUID(), name, notes, xp: Math.max(0, Math.floor(xp)), status:'todo', dueDays, cadence });
+          det.querySelector(`input[data-task-name="${agent.id}"]`).value='';
+          det.querySelector(`textarea[data-task-notes="${agent.id}"]`).value='';
           save();
         });
 
-        det.querySelector(`button[data-agent-edit="${agent.id}"]`).addEventListener('click', () => {
+        // agent award
+        det.querySelector(`button[data-agent-award="${agent.id}"]`).addEventListener('click', ()=>{
+          agent.xp = (agent.xp||0) + 10;
+          agent.level = 1 + Math.floor((agent.xp||0)/50);
+          awardXp(10, `${agent.name} manual award`);
+          save();
+        });
+
+        // edit agent
+        det.querySelector(`button[data-agent-edit="${agent.id}"]`).addEventListener('click', ()=>{
           const newName = prompt('Agent name:', agent.name);
-          if (newName === null) return;
-          const newRole = prompt('Agent role (1 line):', agent.role || '');
-          if (newRole === null) return;
+          if(newName===null) return;
+          const newRole = prompt('Agent role:', agent.role||'');
+          if(newRole===null) return;
           agent.name = newName.trim() || agent.name;
           agent.role = newRole.trim();
           save();
         });
 
-        det.querySelector(`button[data-agent-del="${agent.id}"]`).addEventListener('click', () => {
-          if (!confirm(`Delete agent "${agent.name}" and all its children?`)) return;
+        // delete agent (and children)
+        det.querySelector(`button[data-agent-del="${agent.id}"]`).addEventListener('click', ()=>{
+          if(!confirm(`Delete agent "${agent.name}" and all its children?`)) return;
           const toDelete = new Set();
-          const collect = (id) => {
+          const collect = (id)=>{
             toDelete.add(id);
-            for (const a of state.agents.filter(x=>x.parentId===id)) collect(a.id);
+            for(const a of state.agents.filter(x=>x.parentId===id)) collect(a.id);
           };
           collect(agent.id);
-          state.agents = state.agents.filter(x => !toDelete.has(x.id));
+          state.agents = state.agents.filter(x=>!toDelete.has(x.id));
           save();
         });
 
-        det.querySelectorAll('button[data-task-status]').forEach(btn => {
-          btn.addEventListener('click', () => {
+        // task status
+det.querySelectorAll('button[data-task-status]').forEach(btn=>{
+          btn.addEventListener('click', ()=>{
             const aid = btn.getAttribute('data-agent');
             const tid = btn.getAttribute('data-task');
             const st = btn.getAttribute('data-task-status');
             const ag = state.agents.find(x=>x.id===aid);
             const task = ag?.tasks?.find(x=>x.id===tid);
-            if (!task) return;
+            if(!task) return;
             task.status = st;
             save();
           });
         });
-        det.querySelectorAll('button[data-task-done]').forEach(btn => {
-          btn.addEventListener('click', () => {
+        det.querySelectorAll('button[data-task-done]').forEach(btn=>{
+          btn.addEventListener('click', ()=>{
             const aid = btn.getAttribute('data-agent');
             const tid = btn.getAttribute('data-task');
             const ag = state.agents.find(x=>x.id===aid);
             const task = ag?.tasks?.find(x=>x.id===tid);
-            if (!task) return;
-            task.status = 'done';
+            if(!task) return;
+            task.status='done';
             const xp = Number(task.xp||0);
             ag.xp = (ag.xp||0) + xp;
-            ag.level = 1 + Math.floor((ag.xp||0) / 50);
+            ag.level = 1 + Math.floor((ag.xp||0)/50);
             awardXp(xp, `${ag.name}: ${task.name}`);
             save();
           });
         });
-        det.querySelectorAll('button[data-task-del]').forEach(btn => {
-          btn.addEventListener('click', () => {
+        det.querySelectorAll('button[data-task-del]').forEach(btn=>{
+          btn.addEventListener('click', ()=>{
             const aid = btn.getAttribute('data-agent');
             const tid = btn.getAttribute('data-task');
             const ag = state.agents.find(x=>x.id===aid);
-            if (!ag?.tasks) return;
+            if(!ag?.tasks) return;
             ag.tasks = ag.tasks.filter(x=>x.id!==tid);
             save();
           });
         });
       };
 
-      const roots = byParent.get('root') || [];
-      for (const r of roots) renderNode(r, 0);
+      for(const r of (byParent.get('root')||[])) renderNode(r,0);
     }
 
-    function docReadySummary() {
+    function collectDailyTasks(){
+      const items = [];
+      for(const a of state.agents){
+        for(const t of (a.tasks||[])){
+          if(t.status === 'done') continue;
+          const d = Number(t.dueDays);
+          const isDaily = t.cadence === 'daily';
+          const isUrgent = Number.isFinite(d) && d <= 1;
+          const isSoon = Number.isFinite(d) && d <= 3;
+          if(isDaily || isUrgent || isSoon){
+            items.push({ agentName: a.name, agentId: a.id, task: t });
+          }
+        }
+      }
+      // sort: urgent first, then daily, then soon
+      const score = (x)=>{
+        const t=x.task;
+        if(t.cadence==='daily') return 2;
+        const d=Number(t.dueDays);
+        if(Number.isFinite(d) && d<=1) return 0;
+        if(Number.isFinite(d) && d<=3) return 3;
+        return 9;
+      };
+      items.sort((a,b)=> score(a)-score(b));
+      return items;
+    }
+
+    function renderDailySidebar(){
+      const list = document.getElementById('dailyList');
+      const items = collectDailyTasks();
+      document.getElementById('dailyCount').textContent = `${items.length} items`;
+      list.innerHTML = '';
+
+      if(items.length === 0){
+        list.innerHTML = `<div class="dailyItem"><div class="tiny">No daily/urgent tasks right now.</div></div>`;
+        return;
+      }
+
+      for(const it of items){
+        const t = it.task;
+        const tag = urgencyTag(t);
+
+        const el = document.createElement('div');
+        el.className = 'dailyItem';
+        el.innerHTML = `
+          <div class="top">
+            <div class="left">
+              <span class="tag ${tag.cls}">${escapeHtml(tag.text)}</span>
+              <span class="tag gray">${escapeHtml(it.agentName)}</span>
+              <span class="tag gray">+${escapeHtml(String(t.xp||0))} XP</span>
+            </div>
+            <div class="controls">
+              <button class="primary" data-done="${it.agentId}" data-task="${t.id}">Done</button>
+            </div>
+          </div>
+          <div style="margin-top:8px;font-weight:950">${escapeHtml(t.name)}</div>
+          ${t.notes ? `<div class="tiny" style="margin-top:6px">${escapeHtml(t.notes)}</div>` : ``}
+        `;
+        list.appendChild(el);
+      }
+list.querySelectorAll('button[data-done]').forEach(btn=>{
+        btn.addEventListener('click', ()=>{
+          const aid = btn.getAttribute('data-done');
+          const tid = btn.getAttribute('data-task');
+          const ag = state.agents.find(x=>x.id===aid);
+          const task = ag?.tasks?.find(x=>x.id===tid);
+          if(!task) return;
+          task.status='done';
+          const xp = Number(task.xp||0);
+          ag.xp = (ag.xp||0) + xp;
+          ag.level = 1 + Math.floor((ag.xp||0)/50);
+          awardXp(xp, `${ag.name}: ${task.name}`);
+          save();
+        });
+      });
+    }
+
+    function docReadySummary(){
       const lines = [];
       lines.push('MONETIZATION XP DASHBOARD');
       lines.push('');
       lines.push('Goal: ' + (state.goalText||''));
-      lines.push(`Level: ${state.level} | Total XP: ${state.xp} | Weekly XP Target: ${state.xpTarget}`);
+      lines.push(`Level: ${state.level} | XP: ${state.xp} | Weekly XP Target: ${state.xpTarget}`);
       lines.push('');
-      lines.push('KPIs (this week):');
-      for (const k of state.kpis) {
+      lines.push('KPIs:');
+      for(const k of state.kpis){
         lines.push(`- ${k.name}: ${k.value}/${k.target} ${k.unit||''}`.trim());
       }
       lines.push('');
-      lines.push('Agents:');
-      const byParent = new Map();
-      for (const a of state.agents) {
-        const key = a.parentId || 'root';
-        if (!byParent.has(key)) byParent.set(key, []);
-        byParent.get(key).push(a);
+      lines.push('Daily Tasks:');
+      for(const it of collectDailyTasks()){
+        const tag = urgencyTag(it.task);
+        lines.push(`- [${tag.text}] ${it.agentName}: ${it.task.name}`);
       }
-      const renderAgent = (a, depth=0) => {
-        const indent = '  '.repeat(depth);
-        const done = (a.tasks||[]).filter(t=>t.status==='done').length;
-        const total = (a.tasks||[]).length;
-        lines.push(`${indent}- ${a.name} (Lvl ${a.level||1}, XP ${a.xp||0}) — ${a.role||''}`);
-        if (total) {
-lines.push(`${indent}  Tasks: ${done}/${total} done`);
-          for (const t of (a.tasks||[])) {
-            lines.push(`${indent}  - [${t.status==='done'?'x':t.status==='doing'?'~':' '}] ${t.name} (+${t.xp||0} XP)`);
-          }
-        }
-        for (const kid of (byParent.get(a.id)||[])) renderAgent(kid, depth+1);
-      };
-      for (const root of (byParent.get('root')||[])) renderAgent(root, 0);
-
       return lines.join('\n');
     }
 
+    function render(){
+      document.getElementById('goalText').value = state.goalText;
+      document.getElementById('xpTarget').value = state.xpTarget;
+      document.getElementById('xp').value = state.xp;
+      document.getElementById('level').value = state.level;
+
+      document.getElementById('lastUpdated').textContent = `Updated: ${new Date(state.lastUpdated).toLocaleString()}`;
+
+      const { remaining, need } = computeLevelFromXp(state.xp);
+      const pct = Math.max(0, Math.min(1, remaining/need));
+      document.getElementById('xpFill').style.width = `${Math.round(pct*100)}%`;
+      document.getElementById('xpHint').textContent = `Next level: ${need-remaining} XP needed`;
+
+      renderKpis();
+      renderAgents();
+      renderDailySidebar();
+    }
+
     // bindings
-    let state = load();
+    document.getElementById('goalText').addEventListener('input', e=>{ state.goalText = e.target.value; save(); });
+    document.getElementById('xpTarget').addEventListener('input', e=>{ state.xpTarget = Number(e.target.value||0); save(); });
+    document.getElementById('xp').addEventListener('input', e=>{ state.xp = Number(e.target.value||0); state.level = computeLevelFromXp(state.xp).lvl; save(); });
+    document.getElementById('level').addEventListener('input', e=>{ state.level = Number(e.target.value||1); save(); });
 
-    document.getElementById('goalText').addEventListener('input', (e) => { state.goalText = e.target.value; save(); });
-    document.getElementById('xpTarget').addEventListener('input', (e) => { state.xpTarget = Number(e.target.value||0); save(); });
-    document.getElementById('level').addEventListener('input', (e) => { state.level = Number(e.target.value||1); save(); });
-    document.getElementById('xp').addEventListener('input', (e) => { state.xp = Number(e.target.value||0); const { lvl } = computeLevelFromXp(state.xp); state.level = lvl; save(); });
-
-    document.getElementById('btnAddKpi').addEventListener('click', () => {
+    document.getElementById('btnAddKpi').addEventListener('click', ()=>{
       const name = document.getElementById('newKpiName').value.trim();
       const unit = document.getElementById('newKpiUnit').value.trim();
-      const target = Number(document.getElementById('newKpiTarget').value || 0);
-      if (!name) return toast('KPI name required');
-      state.kpis.push({ id: crypto.randomUUID(), name, unit, target, value: 0 });
-      document.getElementById('newKpiName').value = '';
-      document.getElementById('newKpiUnit').value = '';
-      document.getElementById('newKpiTarget').value = '';
+      const target = Number(document.getElementById('newKpiTarget').value||0);
+      if(!name) return toast('KPI name required');
+      state.kpis.push({ id: crypto.randomUUID(), name, unit, target, value:0 });
+      document.getElementById('newKpiName').value='';
+      document.getElementById('newKpiUnit').value='';
+      document.getElementById('newKpiTarget').value='';
       save();
     });
 
-    document.getElementById('btnAddAgent').addEventListener('click', () => {
+    document.getElementById('btnAddAgent').addEventListener('click', ()=>{
       const name = document.getElementById('newAgentName').value.trim();
       const role = document.getElementById('newAgentRole').value.trim();
       const parentId = document.getElementById('newAgentParent').value || null;
-      if (!name) return toast('Agent name required');
-      state.agents.push({ id: crypto.randomUUID(), name, role, parentId, level: 1, xp: 0, tasks: [] });
-      document.getElementById('newAgentName').value = '';
-      document.getElementById('newAgentRole').value = '';
+      if(!name) return toast('Agent name required');
+      state.agents.push({ id: crypto.randomUUID(), name, role, parentId, level:1, xp:0, tasks:[] });
+      document.getElementById('newAgentName').value='';
+      document.getElementById('newAgentRole').value='';
       save();
     });
-
-    document.getElementById('btnCopyDoc').addEventListener('click', async () => {
+document.getElementById('btnCopyDoc').addEventListener('click', async ()=>{
       await navigator.clipboard.writeText(docReadySummary());
-      toast('Copied doc-ready summary');
+      toast('Copied summary');
     });
 
-    document.getElementById('btnExport').addEventListener('click', async () => {
-      const blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
+    document.getElementById('btnExport').addEventListener('click', ()=>{
+      const blob = new Blob([JSON.stringify(state, null, 2)], { type:'application/json' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
@@ -762,32 +942,32 @@ lines.push(`${indent}  Tasks: ${done}/${total} done`);
     });
 
     const fileImport = document.getElementById('fileImport');
-    document.getElementById('btnImport').addEventListener('click', () => fileImport.click());
-    fileImport.addEventListener('change', async () => {
+    document.getElementById('btnImport').addEventListener('click', ()=> fileImport.click());
+    fileImport.addEventListener('change', async ()=>{
       const f = fileImport.files?.[0];
-      if (!f) return;
+      if(!f) return;
       const text = await f.text();
-      try {
+      try{
         const parsed = JSON.parse(text);
         state = { ...defaultState(), ...parsed };
         localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
         toast('Imported');
         render();
-      } catch {
-        toast('Import failed: invalid JSON');
+      }catch{
+        toast('Import failed');
       }
       fileImport.value = '';
     });
 
-    document.getElementById('btnReset').addEventListener('click', () => {
-      if (!confirm('Reset dashboard data in this browser?')) return;
+    document.getElementById('btnReset').addEventListener('click', ()=>{
+      if(!confirm('Reset dashboard data in this browser?')) return;
       state = defaultState();
       localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
       toast('Reset');
       render();
     });
 
-    save();
+    render();
   </script>
 </body>
 </html>
