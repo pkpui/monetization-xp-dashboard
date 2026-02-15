@@ -9,11 +9,10 @@
       --bg:#070a12;
       --text:#e5e7eb;
       --muted:#9ca3af;
-
       --card: rgba(17,24,39,.70);
       --card2: rgba(15,23,42,.55);
       --border: rgba(255,255,255,.10);
-      --shadow: 0 16px 40px rgba(0,0,0,.38);
+      --shadow: 0 18px 46px rgba(0,0,0,.42);
 
       --blue:#60a5fa;
       --green:#34d399;
@@ -45,12 +44,12 @@
       max-width:1200px; margin:0 auto;
       display:flex; gap:12px; align-items:center; justify-content:space-between;
     }
-    h1{ margin:0; font-size:14px; font-weight:900; letter-spacing:.3px; }
+    h1{ margin:0; font-size:14px; font-weight:950; letter-spacing:.25px; }
     .sub{ margin-top:4px; font-size:11px; color:rgba(156,163,175,.95); }
     .btns{ display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end; }
     button{
       cursor:pointer;
-      font-weight:800;
+      font-weight:900;
       font-size:12px;
       padding:8px 10px;
       border-radius:12px;
@@ -70,16 +69,13 @@
 
     main{ max-width:1200px; margin:0 auto; padding:16px; }
 
-    /* Layout: main content + right sidebar */
     .layout{
       display:grid;
-      grid-template-columns: 1fr 340px;
+      grid-template-columns: 1fr 360px;
       gap:14px;
       align-items:start;
     }
-    @media (max-width: 1020px){
-      .layout{ grid-template-columns: 1fr; }
-    }
+    @media (max-width: 1020px){ .layout{ grid-template-columns: 1fr; } }
 
     .card{
       border:1px solid var(--border);
@@ -88,7 +84,6 @@
       background: linear-gradient(180deg, rgba(17,24,39,.75), rgba(17,24,39,.55));
       padding:12px;
     }
-
     .titleRow{
       display:flex;
       align-items:baseline;
@@ -99,7 +94,7 @@
     .card h2{
       margin:0;
       font-size:13px;
-      font-weight:900;
+      font-weight:950;
       letter-spacing:.2px;
     }
     .tiny{ font-size:11px; color:rgba(156,163,175,.95); }
@@ -108,11 +103,10 @@
     .grid2{
       display:grid;
       grid-template-columns: 1fr 1fr;
-gap:14px;
+      gap:14px;
     }
-    @media (max-width: 980px){ .grid2{ grid-template-columns:1fr; } }
+@media (max-width: 980px){ .grid2{ grid-template-columns:1fr; } }
 
-    /* Goal & XP */
     .form{
       display:grid;
       grid-template-columns: 1fr 1fr;
@@ -145,7 +139,6 @@ gap:14px;
       background: linear-gradient(90deg, rgba(96,165,250,.95), rgba(52,211,153,.9));
     }
 
-    /* KPI cards */
     .kpis{ display:grid; grid-template-columns: repeat(3, 1fr); gap:10px; }
     @media (max-width: 980px){ .kpis{ grid-template-columns: repeat(2, 1fr); } }
     @media (max-width: 560px){ .kpis{ grid-template-columns: 1fr; } }
@@ -159,7 +152,6 @@ gap:14px;
     .kpi .value{ font-size:20px; font-weight:950; margin-top:6px; }
     .kpi .hint{ font-size:11px; color:rgba(156,163,175,.95); margin-top:4px; }
 
-    /* Agents */
     details{
       border:1px solid var(--border);
       border-radius:14px;
@@ -177,6 +169,7 @@ gap:14px;
       padding:10px 12px;
     }
     summary::-webkit-details-marker{ display:none; }
+
     .pill{
       font-size:11px;
       padding:3px 8px;
@@ -187,10 +180,10 @@ gap:14px;
     }
     .pill.good{ border-color: rgba(52,211,153,.35); background: rgba(52,211,153,.08); }
     .pill.warn{ border-color: rgba(251,191,36,.35); background: rgba(251,191,36,.08); }
-    .agentBody{ padding:0 12px 12px; }
 
-    /* Tasks */
+    .agentBody{ padding:0 12px 12px; }
     .tasks{ display:flex; flex-direction:column; gap:8px; margin-top:10px; }
+
     .task{
       border:1px solid var(--border);
       border-radius:14px;
@@ -203,10 +196,10 @@ gap:14px;
       transition: transform .08s ease, border-color .15s ease;
     }
     .task:hover{ transform: translateY(-1px); border-color: rgba(255,255,255,.18); }
+
     .task .name{ font-weight:950; font-size:13px; }
     .task .meta{ font-size:11px; color:rgba(156,163,175,.95); margin-top:3px; }
 
-    /* Urgency hues */
     .task.urgent{
       border-color: rgba(251,113,133,.45);
       background: linear-gradient(180deg, rgba(251,113,133,.14), rgba(17,24,39,.55));
@@ -222,30 +215,22 @@ gap:14px;
     .controls{ display:flex; gap:6px; flex-wrap:wrap; justify-content:flex-end; }
     .controls button{ padding:6px 8px; border-radius:12px; font-size:11px; }
 
-    /* Sidebar daily */
-    .sidebar{
-      position: sticky;
-      top: 76px;
-    }
-    @media (max-width: 1020px){
-      .sidebar{ position: static; }
-    }
+    .sidebar{ position: sticky; top: 76px; }
+    @media (max-width: 1020px){ .sidebar{ position: static; } }
+
     .dailyList{ display:flex; flex-direction:column; gap:8px; margin-top:10px; }
     .dailyItem{
       border:1px solid var(--border);
       border-radius:14px;
       padding:10px;
       background: rgba(15,23,42,.42);
-}
+    }
     .dailyItem .top{
       display:flex; align-items:center; justify-content:space-between; gap:10px;
     }
-    .dailyItem .top .left{
-      display:flex; gap:8px; align-items:center; flex-wrap:wrap;
-    }
     .tag{
       font-size:10px;
-      padding:2px 7px;
+padding:2px 7px;
       border-radius:999px;
       border:1px solid var(--border);
       color:rgba(229,231,235,.95);
@@ -280,7 +265,7 @@ gap:14px;
     <div class="row">
       <div>
         <h1>Monetization XP Dashboard</h1>
-        <div class="sub">Updates persist in your browser (localStorage)</div>
+        <div class="sub">Outbound Setup → Retainer • Content flywheel • Skills + agents</div>
       </div>
       <div class="btns">
         <button class="primary" id="btnCopyDoc">Copy Summary</button>
@@ -293,7 +278,6 @@ gap:14px;
 
   <main>
     <div class="layout">
-      <!-- MAIN -->
       <div>
         <div class="card">
           <div class="titleRow">
@@ -346,7 +330,7 @@ gap:14px;
                 <input id="newKpiTarget" type="number" step="any" placeholder="250" />
               </div>
               <div style="display:flex;align-items:flex-end">
-                <button id="btnAddKpi" style="width:100%">Add KPI</button>
+                <button class="primary" id="btnAddKpi" style="width:100%">Add KPI</button>
               </div>
             </div>
           </div>
@@ -360,18 +344,18 @@ gap:14px;
             <div class="form">
               <div>
                 <label>New agent name</label>
-                <input id="newAgentName" placeholder="e.g., Offer + Copy Agent" />
+                <input id="newAgentName" placeholder="e.g., Outreach Agent" />
               </div>
               <div>
-<label>Parent</label>
+                <label>Parent</label>
                 <select id="newAgentParent"></select>
               </div>
               <div style="grid-column:1/-1">
                 <label>Role</label>
-                <input id="newAgentRole" placeholder="e.g., Sales pages, sequences, hooks" />
+<input id="newAgentRole" placeholder="e.g., Lead sourcing + QA + deliverability" />
               </div>
               <div style="grid-column:1/-1">
-                <button id="btnAddAgent" style="width:100%">Add Agent</button>
+                <button class="primary" id="btnAddAgent" style="width:100%">Add Agent</button>
               </div>
             </div>
 
@@ -380,14 +364,12 @@ gap:14px;
         </div>
       </div>
 
-      <!-- SIDEBAR -->
       <div class="sidebar">
         <div class="card">
           <div class="titleRow">
-            <h2>Daily Tasks</h2>
+            <h2>Daily + Urgent</h2>
             <div class="tiny" id="dailyCount"></div>
           </div>
-          <div class="tiny">Urgent (≤1d) + Daily + 1–3d tasks</div>
           <div class="dailyList" id="dailyList"></div>
         </div>
       </div>
@@ -398,11 +380,11 @@ gap:14px;
   <input id="fileImport" type="file" accept="application/json" style="display:none" />
 
   <script>
-    const STORAGE_KEY = 'monetization_xp_dashboard_v2';
-
-    const defaultState = () => ({
+    const STORAGE_KEY = 'monetization_xp_dashboard_v3';
+const defaultState = () =>
+({
       goalText: 'Reach $10k/mo: Sell Outbound System Setup (48–72h) → convert to monthly Outbound Ops Retainer',
-      xpTarget: 100,
+      xpTarget: 120,
       level: 1,
       xp: 0,
       lastUpdated: Date.now(),
@@ -412,53 +394,87 @@ gap:14px;
         { id: crypto.randomUUID(), name: 'Positive replies', unit: 'count', target: 8, value: 0 },
         { id: crypto.randomUUID(), name: 'Booked calls', unit: 'count', target: 3, value: 0 },
         { id: crypto.randomUUID(), name: 'Content shipped', unit: 'count', target: 3, value: 0 },
-        { id: crypto.randomUUID(), name: 'Revenue', unit: '$', target: 2500, value: 0 },
+        { id: crypto.randomUUID(), name: 'Revenue', unit: '$', target: 2500, value: 0 }
       ],
       agents: [
         {
           id: 'main',
           name: 'Main Agent (You + System)',
-          role: 'Strategy, decisions, final deliverables, KPI scoreboard',
+          role: 'Own offer, pipeline, KPI scoreboard, weekly decisions',
           parentId: null,
           level: 1,
           xp: 0,
           tasks: [
-            { id: crypto.randomUUID(), name: 'Publish 1 demo', notes: '1 problem → 1 system → CTA', xp: 15, status: 'todo', dueDays: 2, cadence: 'once' },
-            { id: crypto.randomUUID(), name: 'Ship lead magnet v1', notes: 'Outbound System Build Checklist', xp: 25, status: 'todo', dueDays: 1, cadence: 'once' },
-            { id: crypto.randomUUID(), name: 'Check KPI scoreboard', notes: 'Update KPIs daily', xp: 5, status: 'todo', dueDays: 0, cadence: 'daily' },
+            { id: crypto.randomUUID(), name: 'Update KPI scoreboard', notes: 'Keep KPIs honest daily', xp: 6, status: 'todo', dueDays: 0, cadence: 'daily' },
+            { id: crypto.randomUUID(), name: 'Ship 1 demo', notes: '1 problem → 1 system → CTA', xp: 18, status: 'todo', dueDays: 2, cadence: 'once' },
+            { id: crypto.randomUUID(), name: 'Book 1 fit check', notes: 'DMs + follow-ups', xp: 22, status: 'todo', dueDays: 1, cadence: 'once' }
           ]
         },
         {
           id: crypto.randomUUID(),
           name: 'Offer + Copy Agent',
-          role: 'Sales page, sequences, hooks, landing page copy',
+          role: 'Sales page, sequences, hooks, lead magnet copy',
           parentId: 'main',
           level: 1,
           xp: 0,
           tasks: [
-            { id: crypto.randomUUID(), name: 'Draft one-page sales page', notes: 'Tiers + FAQs', xp: 20, status: 'done', dueDays: 0, cadence: 'once' },
-            { id: crypto.randomUUID(), name: 'Write 3 outbound sequences', notes: '3 angles, 6-touch', xp: 25, status: 'todo', dueDays: 3, cadence: 'once' },
+            { id: crypto.randomUUID(), name: 'Finalize 1-page sales page', notes: 'Starter/Growth/Scale + FAQ', xp: 20, status: 'todo', dueDays: 2, cadence: 'once' },
+            { id: crypto.randomUUID(), name: 'Write 3 sequences', notes: '3 angles + 6-touch each', xp: 28, status: 'todo', dueDays: 3, cadence: 'once' }
           ]
         },
         {
           id: crypto.randomUUID(),
-          name: 'Content Calendar Agent',
-          role: '4-week YT+SEO plan, scripts, keywords',
+          name: 'Content Agent (YouTube + SEO)',
+          role: 'Week plan, scripts, titles, keywords, CTA blocks',
           parentId: 'main',
           level: 1,
           xp: 0,
           tasks: [
-            { id: crypto.randomUUID(), name: '4-week calendar drafted', notes: 'Titles/hooks/CTAs', xp: 20, status: 'done', dueDays: 0, cadence: 'once' },
-            { id: crypto.randomUUID(), name: 'Write Week 1 scripts', notes: '3 scripts + descriptions', xp: 30, status: 'todo', dueDays: 2, cadence: 'once' },
+            { id: crypto.randomUUID(), name: 'Write Week 1 scripts', notes: '3 videos + descriptions + pinned comments', xp: 30, status: 'todo', dueDays: 2, cadence: 'once' },
+            { id: crypto.randomUUID(), name: 'Post 1 matching blog', notes: 'Same topic as video', xp: 18, status: 'todo', dueDays: 3, cadence: 'once' }
           ]
         },
+        {
+          id: crypto.randomUUID(),
+          name: 'Outbound Ops Agent',
+          role: 'List QA, deliverability guardrails, weekly optimization loop',
+          parentId: 'main',
+          level: 1,
+          xp: 0,
+          tasks: [
+            { id: crypto.randomUUID(), name: 'Daily inbox / reply triage', notes: 'Respond fast; log outcomes', xp: 8, status: 'todo', dueDays: 0, cadence: 'daily' },
+            { id: crypto.randomUUID(), name: 'Weekly optimization pass', notes: 'List → deliverability → offer → copy', xp: 24, status: 'todo', dueDays: 3, cadence: 'once' }
+          ]
+        },
+        {
+          id: crypto.randomUUID(),
+          name: 'Local SEO Audit Agent',
+          role: 'Run audits + citation gap analysis; upsell monitoring (LocalRank)',
+          parentId: 'main',
+          level: 1,
+          xp: 0,
+          tasks: [
+            { id: crypto.randomUUID(), name: 'Audit intake checklist', notes: 'Name/Address/Phone/URL/GBP/services/city', xp: 12, status: 'todo', dueDays: 3, cadence: 'once' }
+          ]
+        },
+        {
+          id: crypto.randomUUID(),
+          name: 'Web Design Agent',
+          role: 'Modern UI polish: spacing, hierarchy, patterns, responsive, QA',
+          parentId: 'main',
+          level: 1,
+          xp: 0,
+tasks: [
+            { id: crypto.randomUUID(), name: 'UI polish pass', notes: 'Bento layout + interactions + mobile pass', xp: 14, status: 'todo', dueDays: 3, cadence: 'once' }
+          ]
+        }
       ]
     });
 
     function load(){
       try{
         const raw = localStorage.getItem(STORAGE_KEY);
-if(!raw) return defaultState();
+        if(!raw) return defaultState();
         const parsed = JSON.parse(raw);
         return { ...defaultState(), ...parsed };
       }catch{
@@ -509,7 +525,6 @@ if(!raw) return defaultState();
         .replaceAll("'","&#039;");
     }
 
-    /* KPIs */
     function renderKpis(){
       const grid = document.getElementById('kpiGrid');
       grid.innerHTML='';
@@ -558,11 +573,11 @@ if(!raw) return defaultState();
     function taskUrgencyClass(task){
       const d = Number(task.dueDays);
       if(task.status === 'done') return 'backlog';
-      if(task.cadence === 'daily') return 'todo'; // daily = green
       if(Number.isFinite(d)){
         if(d <= 1) return 'urgent';
         if(d <= 3) return 'todo';
       }
+      if(task.cadence === 'daily') return 'todo';
       return 'backlog';
     }
 
@@ -570,14 +585,13 @@ if(!raw) return defaultState();
       if(task.status === 'done') return { text:'DONE', cls:'gray' };
       if(task.cadence === 'daily') return { text:'DAILY', cls:'green' };
       const d = Number(task.dueDays);
-      if(Number.isFinite(d) && d <= 1) return { text:'URGENT ≤1d', cls:'red' };
-      if(Number.isFinite(d) && d <= 3) return { text:'TODO 1–3d', cls:'green' };
+if(Number.isFinite(d) && d <= 1) return { text:'URGENT', cls:'red' };
+      if(Number.isFinite(d) && d <= 3) return { text:'TODO', cls:'green' };
       return { text:'BACKLOG', cls:'gray' };
     }
 
-    /* Agents + tasks */
     function renderAgents(){
-const select = document.getElementById('newAgentParent');
+      const select = document.getElementById('newAgentParent');
       select.innerHTML='';
       const opt0 = document.createElement('option');
       opt0.value='';
@@ -623,7 +637,7 @@ const select = document.getElementById('newAgentParent');
             <div class="form" style="margin-top:10px">
               <div>
                 <label>Add task</label>
-                <input data-task-name="${agent.id}" placeholder="e.g., Write Week 1 scripts" />
+                <input data-task-name="${agent.id}" placeholder="e.g., Publish Demo 1" />
               </div>
               <div>
                 <label>XP</label>
@@ -632,9 +646,9 @@ const select = document.getElementById('newAgentParent');
               <div>
                 <label>Due</label>
                 <select data-task-due="${agent.id}">
-                  <option value="1">Urgent (≤ 1 day)</option>
+                  <option value="1">Urgent (≤1 day)</option>
                   <option value="2" selected>To‑do (1–3 days)</option>
-                  <option value="4">Backlog (&gt; 3 days)</option>
+                  <option value="4">Backlog</option>
                 </select>
               </div>
               <div>
@@ -646,7 +660,7 @@ const select = document.getElementById('newAgentParent');
               </div>
               <div style="grid-column:1/-1">
                 <label>Notes</label>
-                <textarea data-task-notes="${agent.id}" placeholder="Definition of done / links / constraints"></textarea>
+                <textarea data-task-notes="${agent.id}" placeholder="Definition of done / link / constraint"></textarea>
               </div>
               <div style="grid-column:1/-1">
                 <button class="primary" data-task-add="${agent.id}" style="width:100%">Add Task</button>
@@ -656,21 +670,20 @@ const select = document.getElementById('newAgentParent');
             <div class="tasks" id="tasks-${agent.id}"></div>
 
             <div style="display:flex;gap:8px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-top:10px">
-              <div class="tiny">Click “Done +XP” to award XP.</div>
+              <div class="tiny">“Done +XP” awards XP.</div>
               <div class="controls">
                 <button data-agent-award="${agent.id}">+10 XP</button>
                 <button data-agent-edit="${agent.id}">Edit</button>
                 <button class="danger" data-agent-del="${agent.id}">Delete</button>
               </div>
-            </div>
+</div>
           </div>
         `;
         wrap.appendChild(det);
 
-        // tasks
         const taskWrap = det.querySelector(`#tasks-${agent.id}`);
         taskWrap.innerHTML='';
-for(const t of (agent.tasks||[])){
+        for(const t of (agent.tasks||[])){
           const cls = taskUrgencyClass(t);
           const tag = urgencyTag(t);
           const taskEl=document.createElement('div');
@@ -690,10 +703,8 @@ for(const t of (agent.tasks||[])){
           taskWrap.appendChild(taskEl);
         }
 
-        // children
         for(const kid of (byParent.get(agent.id)||[])) renderNode(kid, depth+1);
 
-        // add task
         det.querySelector(`button[data-task-add="${agent.id}"]`).addEventListener('click', ()=>{
           const name = det.querySelector(`input[data-task-name="${agent.id}"]`).value.trim();
           const xp = Number(det.querySelector(`input[data-task-xp="${agent.id}"]`).value||0);
@@ -708,7 +719,6 @@ for(const t of (agent.tasks||[])){
           save();
         });
 
-        // agent award
         det.querySelector(`button[data-agent-award="${agent.id}"]`).addEventListener('click', ()=>{
           agent.xp = (agent.xp||0) + 10;
           agent.level = 1 + Math.floor((agent.xp||0)/50);
@@ -716,7 +726,6 @@ for(const t of (agent.tasks||[])){
           save();
         });
 
-        // edit agent
         det.querySelector(`button[data-agent-edit="${agent.id}"]`).addEventListener('click', ()=>{
           const newName = prompt('Agent name:', agent.name);
           if(newName===null) return;
@@ -727,7 +736,6 @@ for(const t of (agent.tasks||[])){
           save();
         });
 
-        // delete agent (and children)
         det.querySelector(`button[data-agent-del="${agent.id}"]`).addEventListener('click', ()=>{
           if(!confirm(`Delete agent "${agent.name}" and all its children?`)) return;
           const toDelete = new Set();
@@ -739,8 +747,6 @@ for(const t of (agent.tasks||[])){
           state.agents = state.agents.filter(x=>!toDelete.has(x.id));
           save();
         });
-
-        // task status
 det.querySelectorAll('button[data-task-status]').forEach(btn=>{
           btn.addEventListener('click', ()=>{
             const aid = btn.getAttribute('data-agent');
@@ -753,6 +759,7 @@ det.querySelectorAll('button[data-task-status]').forEach(btn=>{
             save();
           });
         });
+
         det.querySelectorAll('button[data-task-done]').forEach(btn=>{
           btn.addEventListener('click', ()=>{
             const aid = btn.getAttribute('data-agent');
@@ -768,6 +775,7 @@ det.querySelectorAll('button[data-task-status]').forEach(btn=>{
             save();
           });
         });
+
         det.querySelectorAll('button[data-task-del]').forEach(btn=>{
           btn.addEventListener('click', ()=>{
             const aid = btn.getAttribute('data-agent');
@@ -791,19 +799,19 @@ det.querySelectorAll('button[data-task-status]').forEach(btn=>{
           const d = Number(t.dueDays);
           const isDaily = t.cadence === 'daily';
           const isUrgent = Number.isFinite(d) && d <= 1;
-          const isSoon = Number.isFinite(d) && d <= 3;
-          if(isDaily || isUrgent || isSoon){
+
+          // ONLY daily + urgent
+          if(isDaily || isUrgent){
             items.push({ agentName: a.name, agentId: a.id, task: t });
           }
         }
       }
-      // sort: urgent first, then daily, then soon
-      const score = (x)=>{
-        const t=x.task;
-        if(t.cadence==='daily') return 2;
-        const d=Number(t.dueDays);
-        if(Number.isFinite(d) && d<=1) return 0;
-        if(Number.isFinite(d) && d<=3) return 3;
+      // urgent first, then daily
+      const score = (x) => {
+        const t = x.task;
+        const d = Number(t.dueDays);
+        if(Number.isFinite(d) && d <= 1) return 0;
+        if(t.cadence === 'daily') return 1;
         return 9;
       };
       items.sort((a,b)=> score(a)-score(b));
@@ -817,7 +825,7 @@ det.querySelectorAll('button[data-task-status]').forEach(btn=>{
       list.innerHTML = '';
 
       if(items.length === 0){
-        list.innerHTML = `<div class="dailyItem"><div class="tiny">No daily/urgent tasks right now.</div></div>`;
+        list.innerHTML = `<div class="dailyItem"><div class="tiny">No Daily/Urgent items right now.</div></div>`;
         return;
       }
 
@@ -829,7 +837,7 @@ det.querySelectorAll('button[data-task-status]').forEach(btn=>{
         el.className = 'dailyItem';
         el.innerHTML = `
           <div class="top">
-            <div class="left">
+            <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
               <span class="tag ${tag.cls}">${escapeHtml(tag.text)}</span>
               <span class="tag gray">${escapeHtml(it.agentName)}</span>
               <span class="tag gray">+${escapeHtml(String(t.xp||0))} XP</span>
@@ -867,17 +875,17 @@ list.querySelectorAll('button[data-done]').forEach(btn=>{
       lines.push('Goal: ' + (state.goalText||''));
       lines.push(`Level: ${state.level} | XP: ${state.xp} | Weekly XP Target: ${state.xpTarget}`);
       lines.push('');
-      lines.push('KPIs:');
+      lines.push('KPIs (this week):');
       for(const k of state.kpis){
         lines.push(`- ${k.name}: ${k.value}/${k.target} ${k.unit||''}`.trim());
       }
       lines.push('');
-      lines.push('Daily Tasks:');
+      lines.push('Daily + Urgent:');
       for(const it of collectDailyTasks()){
         const tag = urgencyTag(it.task);
         lines.push(`- [${tag.text}] ${it.agentName}: ${it.task.name}`);
       }
-      return lines.join('\n');
+      return lines.join('\\n');
     }
 
     function render(){
